@@ -1,46 +1,85 @@
-# Getting Started with Create React App
+# Garpix frontend Empty Template
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+1. Для сборки используется [razzlejs](https://razzlejs.org/)
+2. Пакетный менеджер [yarn](https://yarnpkg.com/)
+3. nodejs 14.17 или выше
 
-## Available Scripts
+## Быстрый старт
 
-In the project directory, you can run:
+### Создать переменные окружения
 
-### `npm start`
+```bash
+cp example.env.local .env.local
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### `yarn start`
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Запускает проект в режиме разработки `http://localhost:3000`
 
-### `npm test`
+Страница перезагрузится, если вы внесете правки.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### `yarn build`
 
-### `npm run build`
+Создает приложение для производства в папку сборки.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Сборка минифицирована, а имена файлов включают хеши.
+Ваше приложение готово к развертыванию!
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### `yarn start:prod`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Запускает скомпилированное приложение в продакшена.
 
-### `npm run eject`
+Вы можете снова просмотреть свою заявку на сайте `http://localhost:3000`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### `yarn test:unit`
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+По умолчанию запускает тесты, связанные с файлами, измененными с момента последней фиксации.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### `yarn start -- --inspect`
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Для отладки сервера. Запустит сервер node serverи включит инспектор. Для получения дополнительной информации см. [вот тут](https://nodejs.org/en/docs/inspector/).
 
-## Learn More
+### `rs`
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Если ваше приложение запущено, и вам нужно вручную перезапустить сервер, вам не нужно полностью убивать и повторно объединять ваше приложение. Вместо этого вы можете просто набрать `rs` и нажать Enter в терминале.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Структура проекта
+
+```markdown
+├── src/           # корень
+│   ├── apps/        # приложения (вьюхи, страницы — синонимы)
+│   │   ├── app1/
+│   │   │   ├── components/ # ⚛️-компоненты из app1 и только из него
+│   │   │   ├── const/      # аналогично, константы
+│   │   │   ├── contexts/   # ⚛️-контексты
+│   │   │   ├── hooks/      # ⚛️-хуки
+│   │   │   ├── interfaces/ # интерфейсы из app1 и только из него
+│   │   │   ├── types/      # типы из app1 и только из него
+│   │   │   ├── models/     # сторы-модели из app1 и только из него
+│   │   │   ├── viewmodels/ # сторы-view-модели из app1 и только из него
+│   │   │   ├── services/   # сервисы, специфичные для приложения app1 (api-сервисы лучше всегда класть в общий уровень)
+│   │   │   ├── helpers/    # модули-хелперы, прим.: преобразователи дат, строк и т.п.
+│   │   ├── ...
+│   │   ├── appN/
+│   │   │   ├── ...         # аналогично app1
+│   │
+│   ├── components/  # общие ⚛️-компоненты для 2+ приложений
+│   ├── const/       # общие константы для 2+ приложений
+│   ├── contexts/    # аналогично общие ⚛️-контексты
+│   ├── hooks/       # общие ⚛️-хуки
+│   ├── interfaces/  # общие для 2+ приложений интерфейсы
+│   ├── types/       # общие для 2+ приложений типы
+│   ├── models/      # сторы-модели, общие для 2+ приложений
+│   ├── viewmodels/  # сторы-view-модели, общие для 2+ приложений
+│   ├── services/    # сервисы, общие для 2+ приложений (например API-сервисы или синглтоны)
+│   ├── utils/       # модули-хелперы, прим.: преобразователи дат, строк и т.п., общие для 2+ приложений
+│   ├── pages/       # То что передаем в роутер
+```
+
+## Production (CI/CD)
+
+Для установки зависимостей в CI/CD нужно использовать следующую команду:
+
+```
+yarn install --frozen-lockfile
+```
