@@ -1,0 +1,125 @@
+.btns_wrap {
+  color: transparent;
+  border-radius: 6px;
+  transition: 0.5s;
+  width: max-content;
+  &[data-show="true"] {
+    background-color: var(--color-gray-dark);
+  }
+  &[data-editing="true"] {
+    .btn_folder,
+    .btn_folder_file {
+      pointer-events: none;
+    }
+  }
+}
+
+.btn_folder,
+.btn_folder_file {
+  background-color: transparent;
+  border: none;
+  &:hover {
+    background-color: transparent;
+    border: none;
+    color: var(--color-white) !important;
+  }
+}
+
+.empty_folder, .empty_file {
+  color: var(--color-white);
+  position: relative;
+  &[data-tree="true"] {
+    &::after {
+      content: "";
+      position: absolute;
+      pointer-events: none;
+      top: 50%;
+      left: -8px;
+      width: 12px;
+      height: 62px;
+      border-left: 1px solid var(--color-tree);
+      border-bottom: 1px solid var(--color-tree);
+      z-index: 0;
+    }
+  }
+  &[data-tree="false"] {
+    &::before {
+      content: "";
+      position: absolute;
+      pointer-events: none;
+      top: calc(-200% + 6px);
+      left: -8px;
+      width: 12px;
+      height: 55px;
+      border-left: 1px solid var(--color-tree);
+      border-bottom: 1px solid var(--color-tree);
+      z-index: 0;
+    }
+  }
+}
+
+.btn_folder {
+  color: var(--color-folder);
+  position: relative;
+  &[data-tree="true"] {
+    &::before {
+      content: "";
+      pointer-events: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 12px;
+      height: 62px;
+      border-left: 1px solid var(--color-tree);
+      border-bottom: 1px solid var(--color-tree);
+      z-index: -1;
+    }
+  }
+  &[data-after="true"] {
+    &::after {
+      content: "";
+      position: absolute;
+      pointer-events: none;
+      top: 50%;
+      left: -4px;
+      transform: translateY(-100%);
+      width: 12px;
+      height: var(--height);
+      border-left: 1px solid var(--color-tree);
+      border-bottom: 1px solid var(--color-tree);
+      z-index: -1;
+    }
+  }
+
+  &_file {
+    pointer-events: none;
+    color: transparent;
+    transition: 0.3s;
+    transform: translateX(-100%);
+    &[data-show="true"] {
+      pointer-events: all;
+      color: var(--color-file);
+      transform: translateX(0px);
+    }
+  }
+}
+
+.btn_file {
+  color: var(--color-file);
+  padding-left: 4px;
+  position: relative;
+  &[data-tree="true"] {
+    &::after {
+      content: "";
+      position: absolute;
+      pointer-events: none;
+      top: 50%;
+      left: -4px;
+      width: 12px;
+      height: 62px;
+      border-left: 1px solid var(--color-tree);
+      border-bottom: 1px solid var(--color-tree);
+      z-index: 0;
+    }
+  }
+}

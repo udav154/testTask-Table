@@ -1,0 +1,407 @@
+@mixin square-icon($size) {
+  --icon-width: #{$size}px;
+  --icon-height: #{$size}px;
+}
+
+// Задаем row блоку, в котором будут выстраиваться элементы.
+// mrg - расстояние между колонками
+@mixin row($mr) {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: calc(-#{$mr}px / 2);
+  margin-right: calc(-#{$mr}px / 2);
+}
+
+// Задаем количество колонок на блок.
+// colsize - количество колонок из 12, которые занимает блок
+// mrg - расстояние между колонками,
+@mixin col($colsize, $mrg) {
+  width: calc(100% / 12 * #{$colsize} - #{$mrg}px - 0.1px);
+  margin-left: calc(#{$mrg}px / 2);
+  margin-right: calc(#{$mrg}px / 2);
+  word-wrap: break-word;
+}
+
+@mixin col10($colsize, $mrg) {
+  width: calc(100% / 10 * #{$colsize} - #{$mrg}px - 0.1px);
+  margin-left: calc(#{$mrg}px / 2);
+  margin-right: calc(#{$mrg}px / 2);
+  word-wrap: break-word;
+}
+
+@mixin col7($colsize, $mrg) {
+  width: calc(100% / 7 * #{$colsize} - #{$mrg}px - 0.1px);
+  margin-left: calc(#{$mrg}px / 2);
+  margin-right: calc(#{$mrg}px / 2);
+  word-wrap: break-word;
+}
+
+@mixin col5($colsize, $mrg) {
+  width: calc(100% / 5 * #{$colsize} - #{$mrg}px - 0.1px);
+  margin-left: calc(#{$mrg}px / 2);
+  margin-right: calc(#{$mrg}px / 2);
+  word-wrap: break-word;
+}
+
+@mixin desktop-2k {
+  @media screen and (min-width: 2000px) {
+    @content;
+  }
+}
+
+@mixin laptop-lg-big {
+  @media screen and (max-width: 1800px) {
+    @content;
+  }
+}
+
+@mixin laptop-lg {
+  @media screen and (max-width: 1600px) {
+    @content;
+  }
+}
+
+@mixin laptop-md {
+  @media screen and (max-width: 1460px) {
+    @content;
+  }
+}
+
+@mixin laptop-sm {
+  @media screen and (max-width: 1366px) {
+    @content;
+  }
+}
+
+@mixin laptop-xs {
+  @media screen and (max-width: 1200px) {
+    @content;
+  }
+}
+
+@mixin tablet-1100 {
+  @media screen and (max-width: 1100px) {
+    @content;
+  }
+}
+
+@mixin tablet-lg {
+  @media screen and (max-width: 1024px) {
+    @content;
+  }
+}
+
+@mixin ipad {
+  @media screen and (max-width: 810px) {
+    @content;
+  }
+}
+
+@mixin tablet-md {
+  @media screen and (max-width: 768px) {
+    @content;
+  }
+}
+
+@mixin tablet-730 {
+  @media screen and (max-width: 730px) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media screen and (max-width: 700px) {
+    @content;
+  }
+}
+
+@mixin mobile-550 {
+  @media screen and (max-width: 550px) {
+    @content;
+  }
+}
+
+@mixin mobile-450 {
+  @media screen and (max-width: 450px) {
+    @content;
+  }
+}
+
+@mixin mobile-lg {
+  @media screen and (max-width: 375px) {
+    @content;
+  }
+}
+
+@mixin mobile-md {
+  @media screen and (max-width: 360px) {
+    @content;
+  }
+}
+
+@mixin mobile-sm {
+  @media screen and (max-width: 320px) {
+    @content;
+  }
+}
+
+@mixin laptop-old {
+  @media screen and (max-height: 810px) and (min-width: 1150px) {
+    @content;
+  }
+}
+
+// в медиа-запросах для изменения количества колонок и отступов
+// менять значение переменных --col и --gap соответственно
+// $gap-row - необязательный, определяет вертикальный отступ.
+// Если не указан, вертикальный и горизонтальный отступы равны.
+@mixin grid($columns, $gap, $gap-row: null) {
+  --col: #{$columns};
+
+  display: grid;
+  grid-template-columns: repeat(var(--col), 1fr);
+
+  --gap: #{$gap};
+
+  @if $gap-row not null {
+    --gap-row: #{$gap-row};
+  } @else {
+    --gap-row: var(--gap);
+  }
+
+  grid-column-gap: var(--gap);
+  grid-row-gap: var(--gap-row);
+}
+
+@mixin h($size) {
+  line-height: 130%;
+
+  @if $size == 1 {
+    font-size: 50px;
+    line-height: 130%;
+
+    @include tablet-1100 {
+      font-size: 40px;
+    }
+
+    @include mobile {
+      font-size: 32px;
+    }
+  } @else if $size == 2 {
+    font-size: 40px;
+
+    @include laptop-sm {
+      font-size: 36px;
+    }
+
+    @include mobile {
+      font-size: 22px;
+    }
+  } @else if $size == 3 {
+    font-size: 36px;
+
+    @include laptop-sm {
+      font-size: 30px;
+    }
+
+    @include mobile {
+      font-size: 20px;
+    }
+  } @else if $size == 4 {
+    font-size: 24px;
+
+    @include laptop-sm {
+      font-size: 22px;
+    }
+
+    @include mobile {
+      font-size: 18px;
+    }
+  } @else if $size == 5 {
+    font-size: 22px;
+
+    @include laptop-sm {
+      font-size: 20px;
+    }
+
+    @include mobile {
+      font-size: 16px;
+    }
+  } @else if $size == 6 {
+    font-size: 18px;
+  }
+}
+
+@mixin text($size) {
+  line-height: 120%;
+
+  @if $size == 'xl' {
+    font-size: 24px;
+
+    @include tablet-1100 {
+      font-size: 22px;
+    }
+
+    @include mobile {
+      font-size: 20px;
+    }
+  } @else if $size == 'p1' {
+    font-size: 18px;
+
+    @include desktop-2k {
+      font-size: 20px;
+    }
+
+    @include tablet-1100 {
+      font-size: 16px;
+    }
+
+    @include mobile {
+      font-size: 14px;
+    }
+  } @else if $size == 'p2' {
+    font-size: 16px;
+
+    @include desktop-2k {
+      font-size: 18px;
+    }
+
+    @include tablet-1100 {
+      font-size: 16px;
+    }
+  }
+}
+
+@mixin scrollbar {
+  // Firefox styles
+  scrollbar-color: var(--color-red) transparent; // «цвет ползунка» «цвет полосы скроллбара»
+  scrollbar-width: thin; // auto | thin | none
+
+  // Webkit styles
+  &::-webkit-scrollbar {
+    width: 6px; // Ширина для вертикального скролла
+    height: 6px; // Высота для горизонтального скролла
+    background-color: transparent; /* «цвет полосы скроллбара» */
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    background-color: var(--color-red); /* «цвет ползунка» */
+  }
+}
+
+/* Скрытый блок */
+// Визуально прячет блок, но оставляет доступным для средств чтения
+// с экрана и для клавиатурной навигации
+@mixin hidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  clip-path: polygon(0 0, 0 0, 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  white-space: nowrap;
+}
+
+/* Обрезка текста по количеству строк */
+// lines - количество строк
+// Работает только с префиксами!
+@mixin line-clamp($lines) {
+  --lines: #{$lines};
+
+  display: -webkit-box; /* stylelint-disable-line value-no-vendor-prefix */
+  -webkit-line-clamp: var(
+    --lines
+  ); /* stylelint-disable-line property-no-vendor-prefix */
+
+  -webkit-box-orient: vertical; /* stylelint-disable-line property-no-vendor-prefix */
+  overflow: hidden;
+}
+
+@mixin flex($type) {
+  display: flex;
+
+  @if $type == 'lc' {
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  @if $type == 'sc' {
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  @if $type == 'rc' {
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  @if $type == 'cc' {
+    justify-content: center;
+    align-items: center;
+  }
+
+  @if $type == 'ct' {
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  @if $type == 'lt' {
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  @if $type == 'st' {
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  @if $type == 'rt' {
+    justify-content: flex-end;
+    align-items: flex-start;
+  }
+
+  @if $type == 'ce' {
+    justify-content: center;
+    align-items: flex-end;
+  }
+
+  @if $type == 'le' {
+    justify-content: flex-start;
+    align-items: flex-end;
+  }
+
+  @if $type == 'se' {
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  @if $type == 're' {
+    justify-content: flex-end;
+    align-items: flex-end;
+  }
+}
+
+@mixin flexcol($type: 't', $wrap: 'w') {
+  display: flex;
+  flex-direction: column;
+
+  @if $type == 't' {
+    justify-content: flex-start;
+  }
+
+  @if $type == 's' {
+    justify-content: space-between;
+  }
+
+  @if $wrap == 'w' {
+    flex-wrap: wrap;
+  }
+
+  @if $type == 'n' {
+    flex-wrap: nowrap;
+  }
+}

@@ -1,0 +1,24 @@
+.content_wrap {
+  height: 100%;
+  width: 100%;
+  background-color: var(--color-dark);
+  padding-bottom: 100px;
+  overflow-x: auto;
+
+  
+  scrollbar-color: var(--color-gray) transparent; // «цвет ползунка» «цвет полосы скроллбара»
+  scrollbar-width: thin; // auto | thin | none
+
+  // Webkit styles
+  &::-webkit-scrollbar {
+    width: 6px; // Ширина для вертикального скролла
+    height: 6px; // Высота для горизонтального скролла
+    background-color: transparent; /* «цвет полосы скроллбара» */
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    background-color: var(--color-gray); /* «цвет ползунка» */
+  }
+}
+

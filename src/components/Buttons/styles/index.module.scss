@@ -1,0 +1,22 @@
+.btnIcon {
+  background-color: transparent ;
+  border-color: transparent ;
+  color: red ;
+  border-radius: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  div {
+    display: flex;
+    align-items: center;
+  }
+  &:hover {
+    background-color: transparent;
+    border-color: transparent;
+    color: white;
+  }
+  &::after {
+    display: none;
+  }
+}
+

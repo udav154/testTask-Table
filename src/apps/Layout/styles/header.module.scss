@@ -1,0 +1,13 @@
+.header {
+  padding: 0 20px;
+  height: 40px;
+  background-color: var(--color-dark-light);
+  border-bottom: 1px solid var(--color-gray-dark);
+}
+.header_wrap {
+ height: inherit;
+}
+.hader_left {
+  align-items: center;
+  height: 100%;
+}

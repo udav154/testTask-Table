@@ -1,0 +1,19 @@
+.input_table_text {
+  background-color: transparent;
+  border: 1px solid var(--color-gray-dark);
+  color: var(--color-input-placeholder);
+  padding: 9px;
+  border-radius: 6px;
+  width: 100%;
+  outline: none;
+  &[data-error="true"] {
+    border: 1px solid var(--color-red);
+  }
+  &:focus, &:focus-visible {
+    border: 1px solid var(--color-gray-dark);
+    color: var(--color-white);
+    &[data-error="true"] {
+      border: 1px solid var(--color-red);
+    }
+  }
+}

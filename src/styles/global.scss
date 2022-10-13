@@ -1,0 +1,69 @@
+@import "normalize";
+@import "./variables/";
+@import "./fonts";
+
+:root {
+  --color-white: #fff;
+  --color-black: #000;
+  --color-red: #f00;
+  --color-dark: #202124;
+  --color-dark-light: #27272a;
+  --color-gray: #a1a1aa;
+  --color-gray-dark: #414144;
+  --color-input-placeholder: #71717A;
+  --color-tree: #C6C6C6;
+  --color-file: #7890B2;
+  --color-folder: #5F98F5;
+}
+
+*,
+::after,
+::before {
+  box-sizing: border-box;
+}
+
+#root {
+  overflow: hidden;
+  height: 100%;
+}
+
+html {
+  scroll-behavior: smooth;
+  height: 100%;
+}
+
+body {
+  font-family: Roboto, sans-serif !important;
+  font-weight: normal;
+  color: var(--color-white);
+  background-color: var(--color-dark);
+  font-size: 16px;
+  margin: 0;
+  height: 100%;
+}
+.spec_provider{
+  height: 100%;
+}
+
+main {
+  height: 100%;
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.hidden {
+  visibility: hidden;
+  position: absolute;
+  clip: rect(0 0 0 0);
+  width: 0;
+  height: 0;
+  margin: -1px;
+}

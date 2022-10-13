@@ -1,0 +1,36 @@
+
+.table_main {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  vertical-align: center;
+}
+
+.table_head {
+  width: 100%;
+}
+
+.table_head__row {
+}
+
+.table_head__item--text {
+  color: var(--color-gray);
+}
+
+.table_head__item {
+  padding: 10px;
+  white-space: nowrap;
+}
+.table_body_row {
+  border-top: 1px solid var(--color-gray-dark);
+}
+.table_data__item {
+  padding: 12px;
+  white-space: nowrap;
+  user-select: none;
+  height: 61px;
+}
+
+.table_row_text {
+  
+}
