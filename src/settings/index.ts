@@ -1,4 +1,4 @@
-import { avatartImage } from "../assets/icons/images";
+import { avatartImage } from "../assets/images";
 import { IUser, IPage, NewRowData, RowData } from "../interfaces";
 
 export const KEY_CODE = {
