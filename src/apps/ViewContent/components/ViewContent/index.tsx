@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useStoreon } from 'storeon/react'
 import Table from '../Table'
-import { editRow, saveRow, addRowBuType } from '../../../../utils'
+import { editRow, saveRow, addRowBuType, createRowWhithNewValue } from '../../../../utils'
 import { NewRowData, RowData } from '../../../../interfaces'
-import { MOCK_TABLE_DATA_TEST, STRING_FIELD } from '../../../../settings'
 import style from '../../styles/content.module.scss'
+import { KEY_CODE } from '../../../../settings'
 
 const ViewContent: React.FC<{}> = ({ }) => {
   const { dispatch, tableData } = useStoreon<{ tableData: RowData[] }>('tableData')
   const [editingRow, setEditingRow] = useState<null | RowData>(tableData[0])
   const [addedRow, setAddedRow] = useState<null | NewRowData>(null)
   const [isErrorFied, setIsErrorField] = useState<{ [key: string]: boolean }>({})
+  const editingRowRef = useRef<null | RowData>(null)
+  const addedRowRef = useRef<null | NewRowData>(null)
 
   const checkRowByEmptyField = (row: any) => {
     const newIsErroeField: { [key: string]: boolean } = {}
@@ -30,6 +32,9 @@ const ViewContent: React.FC<{}> = ({ }) => {
     if (eventRow) {
       setEditingRow(eventRow)
       setAddedRow(null)
+      if (!addedRowRef.current && !editingRowRef.current) {
+        window.addEventListener('keydown', handleKeyEvent)
+      }
     }
   }
 
@@ -40,101 +45,83 @@ const ViewContent: React.FC<{}> = ({ }) => {
   }
 
   const handleEditingRow = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const fieldtype: string | null = e.target.ariaLabel
-    let value: string | number = e.target.value
-    if (fieldtype) {
-      if (!STRING_FIELD.includes(fieldtype)) {
-        value = parseFloat(value) ? parseFloat(value) : 0
-      }
-      // @ts-ignore
-      const newData: RowData = {
-        ...editingRow,
-        [fieldtype]: value,
-      }
-      const newprice = Number((newData.quantity * newData.unitPrice).toFixed(2))
-      setEditingRow({
-        ...newData,
-        price: newprice
-      })
-    }
+    const newData = createRowWhithNewValue(e, editingRowRef.current)
+    setEditingRow(newData as RowData)
   }
 
   const handleEditAddedRow = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const fieldtype: string | null = e.target.ariaLabel
-    let value: string | number = e.target.value
-
-    if (fieldtype) {
-      if (!STRING_FIELD.includes(fieldtype)) {
-        value = parseFloat(value) ? parseFloat(value) : 0
-      }
-      // @ts-ignore
-      const newData: RowData = {
-        ...addedRow,
-        [fieldtype]: value,
-      }
-      const newprice = newData.quantity * newData.unitPrice
-      setAddedRow({
-        ...newData,
-        price: newprice
-      })
-    }
+    const newData = createRowWhithNewValue(e, addedRowRef.current)
+    setAddedRow(newData as NewRowData)
   }
 
   const handeleAddRow = ({ id, type }: { id: number, type: string }): void => {
-    setEditingRow(null)
     const newRow = addRowBuType(id, type, tableData)
+    setEditingRow(null)
     setAddedRow(newRow)
+    if (!addedRowRef.current && !editingRowRef.current) {
+      window.addEventListener('keydown', handleKeyEvent)
+    }
   }
 
-  const handleKeyEvent = (e: KeyboardEvent) => {
-    if (e.keyCode === 13) {
-      if (editingRow) {
-        const isError = checkRowByEmptyField(editingRow)
-        if (isError) return
-        const { current, changed } = editRow(editingRow, tableData)
-        // @ts-ignore
-        const newTableData: RowData[] = tableData.reduce((a, b) => {
-          const isChanged = changed.find(el => el.id === b.id)
-          const addedRowData = b.id === current.id ? current : b.id === isChanged?.id ? isChanged : b
-          return [...a, addedRowData]
-        }, [])
-        dispatch('tableData/set', newTableData)
-        setEditingRow(null)
-      }
-      if (addedRow) {
-        const isError = checkRowByEmptyField(addedRow)
-        if (isError) return
-        const { current, changed } = saveRow(addedRow, tableData)
-        // @ts-ignore
-        const newTableData: RowData[] = tableData.reduce((a, b) => {
-          const isChanged = changed.find(el => el.id === b.id)
-          const addedRowData = b.id === isChanged?.id ? isChanged : b
-          return [...a, addedRowData]
-        }, [])
-        dispatch('tableData/set', [...newTableData, current])
-        setAddedRow(null)
-      }
-    } else if (e.keyCode === 27) {
+  const handleEsc = () => {
+    setEditingRow(null)
+    setAddedRow(null)
+    window.removeEventListener('keydown', handleKeyEvent)
+  }
+
+  const handleEnter = () => {
+    if (editingRowRef.current) {
+      const isError = checkRowByEmptyField(editingRowRef.current)
+      if (isError) return
+      const { current, changed } = editRow(editingRowRef.current, tableData)
+      // @ts-ignore
+      const newTableData: RowData[] = tableData.reduce((a, b) => {
+        const isChanged = changed.find(el => el.id === b.id)
+        const addedRowData = b.id === current.id ? current : b.id === isChanged?.id ? isChanged : b
+        return [...a, addedRowData]
+      }, [])
+      dispatch('tableData/set', newTableData)
       setEditingRow(null)
+    }
+    if (addedRowRef.current) {
+      const isError = checkRowByEmptyField(addedRowRef.current)
+      if (isError) return
+      const { current, changed } = saveRow(addedRowRef.current, tableData)
+      // @ts-ignore
+      const newTableData: RowData[] = tableData.reduce((a, b) => {
+        const isChanged = changed.find(el => el.id === b.id)
+        const addedRowData = b.id === isChanged?.id ? isChanged : b
+        return [...a, addedRowData]
+      }, [])
+      dispatch('tableData/set', [...newTableData, current])
       setAddedRow(null)
+    }
+    window.removeEventListener('keydown', handleKeyEvent)
+  }
+
+
+  const handleKeyEvent = (e: KeyboardEvent) => {
+    if (e.key === KEY_CODE.ENTER) {
+      handleEnter()
+    } else if (e.key === KEY_CODE.ESCAPE) {
+      handleEsc()
     }
   }
 
   useEffect(() => {
-    console.log('addedRow', addedRow)
+    addedRowRef.current = addedRow
   }, [addedRow])
 
   useEffect(() => {
+    editingRowRef.current = editingRow
+  }, [editingRow])
 
-    if (editingRow || addedRow) {
-      window.addEventListener('keydown', handleKeyEvent)
-    } else {
-      window.removeEventListener('keydown', handleKeyEvent)
-    }
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeyEvent)
     return () => {
       window.removeEventListener('keydown', handleKeyEvent)
     }
-  }, [editingRow, addedRow])
+  }, [])
 
   return (
     <div className={style.content_wrap}>

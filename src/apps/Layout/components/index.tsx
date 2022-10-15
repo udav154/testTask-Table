@@ -11,6 +11,7 @@ const Layout: React.FC<layoutProps> = ({ children }) => {
       <main>
         {children}
       </main>
+      <footer />
     </>
   )
 }

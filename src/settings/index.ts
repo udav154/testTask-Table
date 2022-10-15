@@ -1,6 +1,11 @@
 import { avatartImage } from "../assets/icons/images";
 import { IUser, IPage, NewRowData, RowData } from "../interfaces";
 
+export const KEY_CODE = {
+  ENTER: "Enter",
+  ESCAPE: "Escape",
+};
+
 export const NAVBAR_MENU: IPage[] = [
   { id: 0, title: "Просмотр", to: "/" },
   { id: 2, title: " Управление", to: "/control" },
@@ -74,7 +79,7 @@ export const EMPTY_FILE_DATA: NewRowData = {
 
 export const STRING_FIELD = ["title", "unit"];
 
-export const MOCK_TABLE_DATA:RowData[]= [
+export const MOCK_TABLE_DATA: RowData[] = [
   {
     id: 0,
     title: "Южная строительная площадка",
@@ -117,8 +122,7 @@ export const MOCK_TABLE_DATA:RowData[]= [
   },
 ];
 
-
-export const MOCK_TABLE_DATA_TEST:RowData[] = [
+export const MOCK_TABLE_DATA_TEST: RowData[] = [
   {
     id: 0,
     title: "1",

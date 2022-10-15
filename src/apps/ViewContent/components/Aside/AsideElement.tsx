@@ -8,8 +8,8 @@ const AsideElement: React.FC<IAsideElement> = ({ category, isCurrent, onClick })
 
   return (
     <li className={style.aside_element}>
-      <button className={style.aside_element_btn} data-active={isCurrent} onClick={()=>{onClick(id)}} >
-        <Icon variantIcon='listElement' />
+      <button className={style.aside_element_btn} data-active={isCurrent} onClick={()=>{onClick(id)}}>
+        <Icon variantIcon='listElement'/>
         <span className={style.item_text}>
           {title}
         </span>

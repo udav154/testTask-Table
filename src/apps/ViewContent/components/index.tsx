@@ -13,7 +13,7 @@ const MainContent: React.FC = ({ }) => {
 
   const handleChangeCategory = (idCategory: number): void => {
     const newCategory = ASIDE_MENU.find(el => el.id === idCategory)
-    if (newCategory !== undefined) {
+    if (newCategory) {
       setCategory(newCategory)
     }
   }
@@ -29,10 +29,14 @@ const MainContent: React.FC = ({ }) => {
         columns={['300px', '1fr']}
         rows={['1fr']}
         UNSAFE_className={style.content_grid}>
-        <View gridArea="aside" UNSAFE_className={style.aside_wrap}>
-          <Aside currentCategory={currentCategory} menu={ASIDE_MENU} handleChangeCategory={handleChangeCategory} />
+        <View gridArea="aside"
+          UNSAFE_className={style.aside_wrap}>
+          <Aside currentCategory={currentCategory}
+            menu={ASIDE_MENU}
+            handleChangeCategory={handleChangeCategory} />
         </View>
-        <View gridArea="content" UNSAFE_className={style.content_wrap}>
+        <View gridArea="content"
+          UNSAFE_className={style.content_wrap}>
           <ViewContent />
         </View>
       </Grid>

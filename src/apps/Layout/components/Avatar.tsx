@@ -9,7 +9,6 @@ const Avatar: React.FC<IAvatarProps> = ({ user }) => {
   const { name, image } = user
 
   return (
-    <>
       <MenuTrigger >
         <ActionButton UNSAFE_className={style.avatar_trigger}>
           <Flex UNSAFE_className={style.avatar_togle}>
@@ -20,13 +19,12 @@ const Avatar: React.FC<IAvatarProps> = ({ user }) => {
             <Icon variantIcon={'arrowBottom'} />
           </Flex>
         </ActionButton>
+        
         <Menu onAction={(key) => console.log(key)}>
           <Item key="profile">Profile</Item>
           <Item key="enter">Enter</Item>
         </Menu>
       </MenuTrigger>
-
-    </>
   )
 }
 

@@ -1,6 +1,6 @@
-import { rmSync } from "fs";
+
 import { RowData, NewRowData } from "../interfaces";
-import { EMPTY_FILE_DATA, EMPTY_FOLDER_DATA } from "../settings";
+import { EMPTY_FILE_DATA, EMPTY_FOLDER_DATA , STRING_FIELD} from "../settings";
 
 export const getSumPrice = (id: number, tableData: RowData[]): number => {
   const element = tableData.find((el) => el.id === id);
@@ -54,6 +54,23 @@ export const getTypeTree = (row: RowData, allRows: RowData[]): number => {
   if (row.type === "level") return typeTreeForFolder(row, allRows);
   return typeTreeForFile(row, allRows);
 };
+
+export const createRowWhithNewValue = (event: React.ChangeEvent<HTMLInputElement>, oldRow: object | null = {}) => {
+  const fieldtype: string | null = event.target.ariaLabel
+  let value: string | number = event.target.value
+  if (fieldtype && oldRow) {
+    if (!STRING_FIELD.includes(fieldtype)) {
+      value = parseFloat(value) ? parseFloat(value) : 0
+    }
+    // @ts-ignore
+    const newData: RowData = {
+      ...oldRow,
+      [fieldtype]: value,
+    }
+    const newprice = Number((newData.quantity * newData.unitPrice).toFixed(2))
+    return { ...newData, price: newprice }
+  }
+}
 
 export const addRowBuType = (
   idEventRow: number,
