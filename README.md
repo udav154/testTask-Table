@@ -41,4 +41,7 @@
 │   ├── pages/       # То что передаем в роутер
 ```
 
-![hippo](https://i.yapx.cc/USQRJ.gif)
+
+<div id="header" align="center">
+  <img src="https://i.yapx.cc/USQRJ.gif" width="100"/>
+</div>
