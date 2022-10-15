@@ -41,7 +41,6 @@
 │   ├── pages/       # То что передаем в роутер
 ```
 
+### Examlpe GIF
 
-<div id="header" align="center">
-  <img src="https://i.yapx.cc/USQRJ.gif" width="100"/>
-</div>
+![](https://github.com/udav154/testTask-Table/blob/master/src/assets/gifs/testTask.gif)
