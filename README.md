@@ -41,4 +41,4 @@
 │   ├── pages/       # То что передаем в роутер
 ```
 
-![hippo](https://yapx.ru/v/USQRA)
+![hippo](https://i.yapx.cc/USQRJ.gif)
